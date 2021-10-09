@@ -1,0 +1,28 @@
+{
+  "name": "pinkaloo-exercise",
+  "version": "1.0.0",
+  "description": "Exercise for Pinkaloo interview",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vossryn/pinkaloo-exercise.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vossryn/pinkaloo-exercise/issues"
+  },
+  "homepage": "https://github.com/Vossryn/pinkaloo-exercise#readme",
+  "dependencies": {
+    "axios": "^0.22.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
