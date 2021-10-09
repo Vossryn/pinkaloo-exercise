@@ -1,0 +1,41 @@
+@import-normalize;
+
+:root {
+  --white: #ffffff;
+  --pink-100: #f0d3d9;
+  --pink-300: #eb5270;
+  --pink-500: #aa3c52;
+  --gray-100: #ececec;
+  --gray-300: #cacaca;
+  --gray-300-5: rgba(202, 202, 202, 0.5);
+  --gray-500: #808080;
+  --gray-500-5: rgba(128, 128, 128, 0.5);
+  --font-color: #000000;
+}
+
+html[stie-theme="dark"] {
+  --white: #ffffff;
+  --pink-100: #f0d3d9;
+  --pink-300: #eb5270;
+  --pink-500: #aa3c52;
+  --gray-100: #ececec;
+  --gray-300: #cacaca;
+  --gray-300-5: rgba(202, 202, 202, 0.5);
+  --gray-500: #808080;
+  --gray-500-5: rgba(128, 128, 128, 0.5);
+  --font-color: #000000;
+}
+
+body,
+html {
+  min-height: 100vh;
+  background-color: var(--pink-100);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
