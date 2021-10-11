@@ -7,6 +7,7 @@ const port = process.env.SERVER_PORT || 4000;
 
 const app = express();
 app.use(express.json());
+app.use(express.static("../client/build"));
 
 app.get("/api/endpoint", async (req, res) => {
   try {
