@@ -10,14 +10,19 @@ app.use(express.json());
 
 app.get("/api/endpoint", async (req, res) => {
   try {
-    let { name = "", fields = "id,name,address,abstract", result = 20, page = 1 } = req.query;
+    let {
+      search = "",
+      fields = "id,name,address,abstract",
+      result = 20,
+      currentPage = 1,
+    } = req.query;
 
     const response = await axios.get(`${process.env.API_URL}/search`, {
-      params: { name, fields, result, page },
+      params: { name: search, fields, result, page: currentPage },
       headers: { "X-API-Key": process.env.API_KEY },
     });
 
-    res.json({ data: response.data });
+    res.json(response.data);
   } catch (error) {
     console.log(error);
   }

@@ -1,32 +1,65 @@
 import React from "react";
+import axios from "axios";
 
 import DataGrid from "./components/DataGrid/index";
+import Pagination from "./components/Pagination";
 
 import "./App.scss";
 
+const columns = [
+  { title: "Name", field: "name" },
+  { title: "City", field: "city" },
+  { title: "State", field: "state" },
+];
+
 function App() {
-  const [search, setSearch] = React.useState("");
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const [queryParams, setQueryParams] = React.useState({
+    search: "",
+    currentPage: 1,
+  });
+  const [nameSearch, setNameSearch] = React.useState("");
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(1);
   const [data, setData] = React.useState([]);
 
+  const fetchData = React.useCallback(async () => {
+    try {
+      console.log(queryParams);
+      const response = await axios.get(`/api/endpoint`, {
+        params: queryParams,
+      });
+      let parsedData = response.data.charities.map((di) => ({
+        ...di,
+        city: di.address.city,
+        state: di.address.state,
+      }));
+      setData(parsedData);
+      setTotalPages(Math.ceil(response.data.num_charities / 20));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [queryParams]);
+
   React.useEffect(() => {
-    setData([]);
-  }, [currentPage]);
+    fetchData();
+  }, [queryParams, fetchData]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setPage(1);
+    setQueryParams({ search: nameSearch, currentPage: 1 });
   };
 
   const handleChange = (event) => {
     event.preventDefault();
-    setSearch(event.target.value);
+    setNameSearch(event.target.value);
   };
 
-  const handlePageChange = (dirrection) => {
-    if (dirrection) {
-      setCurrentPage(currentPage + 1);
-    } else {
-      setCurrentPage(currentPage - 1);
+  const handlePageChange = (direction) => {
+    let newPage = page + direction;
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+      setQueryParams({ search: nameSearch, currentPage: newPage });
     }
   };
 
@@ -43,18 +76,19 @@ function App() {
               name="nameSearch"
               id="nameSearch"
               className="search-input"
-              value={search}
+              value={nameSearch}
               onChange={handleChange}
             />
             <input className="search-button" type="submit" value="Submit" />
           </form>
         </div>
-        <DataGrid
-          data={data}
-          currentPage={currentPage}
-          totalPages={1}
-          handlePageChange={handlePageChange}
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          prevPage={() => handlePageChange(-1)}
+          nextPage={() => handlePageChange(1)}
         />
+        <DataGrid rows={data} columns={columns} />
       </div>
     </div>
   );

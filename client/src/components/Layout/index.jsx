@@ -7,7 +7,6 @@ export default function Layout({ children }) {
     <div className="site-wrapper">
       <header className="site-header">
         <img className="site-header-image" src="images/Pinkaloo.jpg" alt="Pinkaloo Logo" />
-        <div>Theme Toggle</div>
       </header>
       <main className="site-content">{children}</main>
       <footer className="site-footer">
